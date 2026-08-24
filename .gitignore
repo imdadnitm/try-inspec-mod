@@ -1,0 +1,209 @@
+# Git Ignore Configuration for InSpec Docker Profile
+# Prevents accidental commits of secrets, build artifacts, and system files
+
+## 🔐 SECRET FILES & CREDENTIALS
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.prod
+.env.development
+
+# Private keys & certificates
+*.pem
+*.key
+*.pkcs8
+*.p8
+*.p12
+*.pfx
+*.crt
+*.cer
+
+# API keys & tokens (various formats)
+*credentials*
+*secret*
+*token*
+*api_key*
+.credentials
+.aws/
+.docker/config.json
+.docker/credentials.store
+
+# SSH & GPG keys
+.ssh/
+.gnupg/
+id_rsa
+id_dsa
+id_ed25519
+*.pub
+
+## 🔧 BUILD & DEPENDENCY ARTIFACTS
+# InSpec vendor directory (external dependencies)
+vendor/
+.inspec_cache/
+
+# Package managers
+node_modules/
+.bundle/
+Gemfile.lock
+
+# Build outputs
+*.gem
+*.rbc
+.pytest_cache/
+*.pyc
+__pycache__/
+
+## 📊 TEST & REPORT OUTPUTS
+# InSpec reports (generated, not version controlled)
+report.json
+report.html
+report.xml
+*-report.*
+junit-*.xml
+coverage/
+
+# Test artifacts
+.rspec_status
+.coverage
+
+## 💻 IDE & EDITOR FILES
+# VS Code
+.vscode/
+*.code-workspace
+.vscode-test/
+.vscode-server/
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+.DS_Store
+
+# Vim/Neovim
+*.swp
+*.swo
+*~
+.vim/
+.netrwhist
+tags
+TAGS
+
+# Emacs
+*~
+\#*\#
+.\#*
+.emacs.d/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# TextMate
+*.tm_properties
+
+## 🖥️ OS-SPECIFIC FILES
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.TemporaryItems
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+.directory
+
+## 🐳 DOCKER & CONTAINER ARTIFACTS
+# Docker
+.docker/
+docker-compose.override.yml
+.dockerignore
+Docker.local.yml
+
+# Container runtime
+.container/
+*.dockerfile.bak
+
+## 📝 LOG & TEMPORARY FILES
+# Log files
+*.log
+*.logs
+*-debug.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+*.swp
+*.swo
+
+# Process/pid files
+*.pid
+*.pid.lock
+
+# OS locks
+.lock
+.tern-port
+*.lck
+
+## 🔍 LOCAL CONFIGURATION & OVERRIDES
+# Local development overrides
+local.env
+local.yml
+local.yaml
+*.local.*
+
+# Personal notes (should use docs instead)
+NOTES.local
+TODO.local
+
+## 📦 DEPENDENCY LOCK FILES (GENERATED)
+# These are often environment-specific
+# Uncomment if your workflow requires committing lock files
+# (For this project, inspec.lock IS version controlled for determinism)
+# package-lock.json  # <-- INTENTIONALLY NOT IGNORED (deterministic builds)
+# Gemfile.lock       # <-- INTENTIONALLY NOT IGNORED (deterministic builds)
+
+## 🎯 PROJECT-SPECIFIC IGNORES
+# InSpec profile runs
+.last_run_log
+profile_results.json
+
+# Secrets scanning/detection artifacts
+.truffleHog/
+.gitleaks/
+
+# Integration test artifacts
+test-results/
+test-output/
+
+## 📋 IMPORTANT NOTES
+# This .gitignore is designed to:
+# 1. Prevent accidental commits of secrets (keys, tokens, credentials)
+# 2. Exclude generated build artifacts (vendor/, reports)
+# 3. Ignore OS/IDE-specific files (.DS_Store, .vscode/)
+# 4. Exclude logs, temp files, and local overrides
+#
+# EXCEPTION: inspec.lock is intentionally version-controlled
+# Reason: Ensures deterministic dependency resolution across environments
+# See: ai-track-docs/DEPENDENCIES.md for detailed pinning strategy
+#
+# For security concerns or suspected leaked secrets, see:
+# See: ai-track-docs/SECURITY.md

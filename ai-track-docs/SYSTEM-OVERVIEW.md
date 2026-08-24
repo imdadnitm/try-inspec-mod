@@ -30,6 +30,43 @@ This workspace contains a Docker compliance testing profile built with InSpec. T
 - **inspec-docker-resources**: https://github.com/inspec/inspec-docker-resources.git
   - Provides Docker resource types for querying container state
   - Enables control authors to test Docker daemon, containers, images, networks, volumes
+  - **Pinning Strategy**: Locked via inspec.lock (commit hash), no version constraint in inspec.yml
+  - **See**: [DEPENDENCIES.md](DEPENDENCIES.md) for detailed dependency management strategy
+
+## Critical Dependencies Summary
+
+| Dependency | Type | Status | Constraint Strategy | Key Notes |
+|---|---|---|---|---|
+| **inspec-docker-resources** | External (GitHub) | Critical ✅ | Commit hash locked in inspec.lock | Only external dependency; ensures deterministic builds |
+| **InSpec CLI** | Runtime | Critical ✅ | Latest recommended; no version constraint | Users install separately; profile tested with v5.x |
+| **Ruby** | Runtime (via InSpec) | Critical ✅ | Managed by InSpec; no explicit constraint | InSpec v4.0+ provides compatible Ruby |
+| **Docker daemon** | Infrastructure | Critical ✅ | 20.10+ recommended (untested older) | User-managed; required for control execution |
+
+**Key Principle**: Minimal pinning — constraints are loose unless proven compatibility issue exists. Determinism enforced by commit-hash locking in `inspec.lock`.
+
+**For Details**: See [DEPENDENCIES.md](DEPENDENCIES.md) — explains update strategy, monitoring, pinning rationale, and rollback procedures.
+
+---
+
+## Security & Secret Hygiene
+
+This project follows strict security practices to prevent accidental secret leaks:
+
+**Key Protections**:
+- ✅ `.gitignore` blocks common secret patterns (API keys, .env files, private keys)
+- ✅ No hardcoded credentials in code or configs
+- ✅ `inspec.lock` is version-controlled (safe: dependency hash, not secrets)
+- ✅ All secret files have intentional protection patterns
+
+**For Contributing**:
+- Never commit `.env` files, credentials, or private keys
+- Use environment variables for secrets (not code)
+- Pre-commit checklist: `git diff --cached | grep -iE "password|secret|key|token"`
+
+**If Secret Leaked**:
+- See [SECURITY.md](SECURITY.md) for incident response procedures
+
+**Full Security Guide**: See [SECURITY.md](SECURITY.md) — covers secret hygiene, dependency security, environment variables, and incident response
 
 ## Compliance Controls
 Controls are located in `docker-profile-1/controls/` and define testable assertions about Docker environments.
