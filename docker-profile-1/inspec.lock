@@ -1,0 +1,8 @@
+---
+lockfile_version: 1
+depends:
+- name: inspec-docker-resources
+  resolved_source:
+    url: https://github.com/inspec/inspec-docker-resources/archive/15e068090bf9ec066a1111e13d41c42138b50f1a.tar.gz
+    sha256: 5f24bab1f34839a20f9cf43153375d3a26515537fd72319fa5d141e09e5ae030
+  version_constraints: []
