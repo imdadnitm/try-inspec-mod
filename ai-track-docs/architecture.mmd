@@ -1,0 +1,16 @@
+graph TD
+    A["InSpec Profile<br/>docker-profile-1"] --> B["Controls Directory<br/>controls/"]
+    B --> C["Control Files<br/>*.rb"]
+    C --> D["Compliance Assertions"]
+    
+    A --> E["Dependencies<br/>inspec.lock"]
+    E --> F["inspec-docker-resources<br/>GitHub"]
+    F --> G["Docker Resource Types"]
+    
+    D --> G
+    G --> H["Docker Daemon<br/>Unix Socket"]
+    H --> I["Container State<br/>Images, Networks, Volumes"]
+    
+    J["InSpec Exec Runner"] --> A
+    J --> K["Report Generation<br/>CLI, HTML, JSON"]
+    K --> L["Test Results<br/>Pass/Fail/Skip"]
