@@ -1,0 +1,28 @@
+%% ===== INSPEC PROFILE EXECUTION FLOW =====
+%% Describes how InSpec discovers and prepares compliance controls
+%% Flow: Profile → Controls Directory → Control Files → Assertions
+graph TD
+    A["InSpec Profile<br/>docker-profile-1"] --> B["Controls Directory<br/>controls/"]
+    B --> C["Control Files<br/>*.rb"]
+    C --> D["Compliance Assertions"]
+    
+    %% ===== DEPENDENCY RESOLUTION FLOW =====
+    %% Shows how external resources are loaded for Docker testing
+    %% Dependencies are locked (inspec.lock) for reproducible test runs
+    A --> E["Dependencies<br/>inspec.lock"]
+    E --> F["inspec-docker-resources<br/>GitHub"]
+    F --> G["Docker Resource Types"]
+    
+    %% ===== ASSERTIONS -> DOCKER RESOURCES CONNECTION =====
+    %% Bridge: Assertions use Docker Resource Types to query containers/images
+    D --> G
+    
+    %% ===== DOCKER INTERACTION & REPORTING FLOW =====
+    %% Shows test execution: runner queries Docker daemon, generates reports
+    %% Results include Pass/Fail/Skip status for each control
+    G --> H["Docker Daemon<br/>Unix Socket"]
+    H --> I["Container State<br/>Images, Networks, Volumes"]
+    
+    J["InSpec Exec Runner"] --> A
+    J --> K["Report Generation<br/>CLI, HTML, JSON"]
+    K --> L["Test Results<br/>Pass/Fail/Skip"]
