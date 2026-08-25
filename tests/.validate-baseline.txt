@@ -1,0 +1,15 @@
+# Mermaid Validator Performance Baseline
+# Date: Mon Aug 24 19:32:45 IST 2026
+# Runs: 10
+
+Baseline Average: 37ms
+Baseline Min:     36ms
+Baseline Max:     40ms
+Baseline Variance: 4ms
+
+Notes:
+- Validator uses deterministic bash utilities (grep, wc, comm)
+- Performance is I/O bound (file read) not computation bound
+- Variance reflects system load, not algorithmic variance
+- Expected performance: <200ms on typical systems
+- Current implementation runs 10 grep/pattern checks (O(n) per check)
